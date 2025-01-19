@@ -25,12 +25,15 @@ const roomSchema=new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
-    checkinDate:{
-        type:String
-    },
-    checkoutDate:{
-        type:String
-    }
+    bookedDate:[
+        {
+            checkinDate:Date,
+            checkoutDate:Date,
+            userId:String
+        }
+    ],
+   
+  
 })
 
 const RoomModel=mongoose.model('rooms',roomSchema)

@@ -139,24 +139,45 @@ router.post("/updateRooms/:id",upload.single("image"),async(req,res)=>{
 
 router.post("/bookroom", async(req,res)=>{
     const {id,userId,checkinDate,checkoutDate} = req.body
+
    
 
+    function parseDate(dateString){
+        const [day,month,year] = dateString.split("-")
+        return new Date(`${year}-${month}-${day}`)
+    }
 
- const room=await RoomModel.findById({_id:id})
+  
+    const checkin = parseDate(checkinDate)
+    const checkout = parseDate(checkoutDate)
 
- if(!room.availability){
-    return res.json({
-        success:false,
-        message:'room is not available'
-    })
- }
+    
 
- else
- {
+    
 
+const room=await RoomModel.findById({_id:id})
+
+  const isAvailable = room.bookedDate.some((bad)=>{
+    return checkin<bad.checkoutDate && checkout>bad.checkinDate
+  })
+
+
+  
+
+  if(isAvailable){
+  return res.json({
+    success:false,
+    message:"room not available"
+  })
+  }
+  else{
     room.availability=false
-    room.checkinDate=checkinDate
-    room.checkoutDate=checkoutDate
+    room.bookedDate.push({
+        userId,
+        checkinDate:checkin,
+        checkoutDate:checkout
+
+    })
     await room.save()
     const updatedUser = UserModel.findByIdAndUpdate({_id:userId},
 
@@ -181,7 +202,14 @@ router.post("/bookroom", async(req,res)=>{
             message:'error while book room'
         })
     })
- }
+ 
+
+  }
+
+
+
+
+
 
  
 
@@ -194,6 +222,7 @@ router.get("/bookroomdata/:id",async(req,res)=>{
     try {
         const {id} = req.params
       
+        
 
        const userData=  await UserModel.findById({_id:id}).populate("bookedRooms")
          .then(user => {

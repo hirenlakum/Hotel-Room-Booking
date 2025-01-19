@@ -41,10 +41,7 @@ const AllRooms = () => {
     const bookRoom = (id) => {
      const token= localStorage.getItem("authToken")
 
-     if(token){
-      
-
-     }
+    
 
      if(token){
       
@@ -71,6 +68,7 @@ const checkinDate = prompt('please enter check in date')
     alert('checkout date must ne greater than checkin date')
     return;
   }
+  
 
  
 

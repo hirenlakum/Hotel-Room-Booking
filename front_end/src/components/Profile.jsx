@@ -11,23 +11,25 @@ import { Link, useNavigate } from 'react-router-dom'
 const Profile = () => {
 
 
-  const token = localStorage.getItem("authToken")
 
   const [uname,setUname] = useState("")
   const [email,setEmail] = useState("")
   const [image,setImage] = useState("")
   const [roomData,setRoomData] = useState([])
+  const [id,setId] = useState(null)
 
 
 
+  const token = localStorage.getItem("authToken")
   const navigate = useNavigate()
 
-  if(token){
-    const decoded = jwtDecode(token)
-    const userId = decoded.id
-  
+ 
+  useEffect(()=>{
 
-    useEffect(()=>{
+    if(token){
+      const decoded = jwtDecode(token)
+      const userId = decoded.id
+      setId(userId)
 
       axios.get("http://localhost:3011/getUser/"+userId)
       .then(user => {
@@ -36,27 +38,37 @@ const Profile = () => {
         setImage(user.data.image)
       })
       .catch(err => console.log(err))
-    },[])
+
+      axios.get("http://localhost:3011/bookroomdata/"+userId)
+      .then((user) => {
+        setRoomData(user.data.bookedRooms)
+       
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  
+    }
+  },[])
+
+
+ 
+  
+
+
+     
+   
 
 
     
-  useEffect(()=>{
-    axios.get("http://localhost:3011/bookroomdata/"+userId)
-    .then((user) => {
-      setRoomData(user.data.bookedRooms)
-     
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  },[])
+
    
 
-  console.log(roomData)
    
-  }
+  
 
   
+
  
 
   
@@ -71,9 +83,9 @@ const Profile = () => {
    <Header/>
 
    {token ?
-   <div className='h-screen w-screen flex items-center justify-center flex-col'>
-   <h1 className='text-[20px] font-bold text-blue-600'>User Profile</h1>
-  <div className="flex flex-col justify-center  items-center w-[600px] min-h-[400px] p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+   <div className=' flex  flex-col '>
+   <h1 className='text-[20px] font-bold text-blue-600 text-center'>User Profile</h1>
+  <div className="flex flex-col justify-center mx-auto mt-[20px]  items-center w-[600px] min-h-[400px] p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
  <img src={`http://localhost:3011/profileUpload/${image}`} alt="profile image" className="w-32 h-32 mb-[40px] mx-auto rounded-full dark:bg-gray-500 aspect-square" />
  <div className="space-y-4 text-center divide-y dark:divide-gray-300">
    <div className="my-2 space-y-1">
@@ -85,7 +97,7 @@ const Profile = () => {
 
  </div>
 </div>
-<h1 className='mt-[20px] text-[20px]'>Your Book Room</h1>
+<h1 className='mt-[20px] text-[20px] text-center'>Your Book Room</h1>
 
       <table class="w-full bg-white mt-[20px] min-[400px]">
         <thead class="bg-gray-100 whitespace-nowrap">
@@ -124,6 +136,8 @@ const Profile = () => {
 
 
 {roomData.map((room)=>
+
+
   <tr class="hover:bg-gray-50">
    
    <td class="p-4 text-[15px] text-gray-800">
@@ -146,12 +160,29 @@ const Profile = () => {
   
   
    <td class="p-4 text-[15px] text-gray-800">
-   {room.checkinDate}
+   {
+    room.bookedDate.map((date)=>{
+      if(date.userId===id)
+      {
+
+         return date.checkinDate
+        
+      }
+    })
+ 
+   }
    </td>
   
 
    <td class="p-4 text-[15px] text-gray-800">
-   {room.checkoutDate}
+{
+       room.bookedDate.map((date)=>{
+        if(date.userId===id)
+        {
+          return date.checkoutDate
+        }
+      })
+}
    </td>
   
    

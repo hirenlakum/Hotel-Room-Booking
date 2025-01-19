@@ -4,9 +4,12 @@ import 'aos/dist/aos.css'
 import { useEffect } from "react";
 import Header from "./Header"
 import Footer from "./Footer"
+import { useState } from 'react';
 
 
 const AboutUs = () => {
+
+ 
 
     useEffect(()=>{
             Aos.init({
@@ -57,6 +60,7 @@ const AboutUs = () => {
         </div>
       </div>
     </div>
+ 
 <Footer/>
     </>
   );

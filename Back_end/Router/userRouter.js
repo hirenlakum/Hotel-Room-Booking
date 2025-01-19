@@ -110,6 +110,7 @@ router.post("/signin",async(req,res)=>{
 
 router.get("/getUser/:id",async (req,res)=>{
     const {id} = req.params
+  
 
   
    await userModel.findById({_id:id})
