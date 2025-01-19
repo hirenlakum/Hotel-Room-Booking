@@ -4,15 +4,17 @@ import Footer from './Footer'
 import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Loader from "./Loader"
 import {useContext} from "react"
 import { RoomContext } from '../../store/roomStore'
 import { jwtDecode } from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 const AllRooms = () => {
 
   const {rooms} = useContext(RoomContext)
+
+  const navigate = useNavigate()
 
   
   
@@ -44,7 +46,11 @@ const AllRooms = () => {
     
 
      if(token){
+
+      navigate("/bookroom/"+id)
+
       
+/*
 const decode = jwtDecode(token)
 const userId = decode.id
 
@@ -84,6 +90,7 @@ axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate}
 .catch(err => {
   console.log("error while booking room",err)
 })
+  */
 
      }
      else{

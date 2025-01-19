@@ -24,6 +24,7 @@ import Profile from './components/Profile.jsx'
 import Loader from './components/Loader.jsx'
 import AddRoom from './components/AddRoom.jsx'
 import UpdateRoom from './components/UpdateRoom.jsx'
+import BookRoom from './components/BookRoom.jsx'
 
 
 const router = createBrowserRouter([
@@ -91,6 +92,9 @@ path:"/manageuser",element:<Manage_user/>
       {
       path:"/updateroom/:id",element:<UpdateRoom/>
       },
+      {
+        path:"/bookroom/:id",element:<BookRoom/>
+      }
     
     
     ],

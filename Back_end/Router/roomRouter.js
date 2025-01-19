@@ -141,8 +141,12 @@ router.post("/bookroom", async(req,res)=>{
     const {id,userId,checkinDate,checkoutDate} = req.body
 
    
+    const checkin = new Date(checkinDate)
+    const checkout = new Date(checkoutDate)
 
-    function parseDate(dateString){
+
+
+   /* function parseDate(dateString){
         const [day,month,year] = dateString.split("-")
         return new Date(`${year}-${month}-${day}`)
     }
@@ -150,6 +154,8 @@ router.post("/bookroom", async(req,res)=>{
   
     const checkin = parseDate(checkinDate)
     const checkout = parseDate(checkoutDate)
+
+    */
 
     
 
@@ -160,6 +166,8 @@ const room=await RoomModel.findById({_id:id})
   const isAvailable = room.bookedDate.some((bad)=>{
     return checkin<bad.checkoutDate && checkout>bad.checkinDate
   })
+
+console.log(isAvailable)
 
 
   
@@ -176,7 +184,6 @@ const room=await RoomModel.findById({_id:id})
         userId,
         checkinDate:checkin,
         checkoutDate:checkout
-
     })
     await room.save()
     const updatedUser = UserModel.findByIdAndUpdate({_id:userId},
