@@ -1,6 +1,7 @@
 import React from 'react'
 import {useForm} from "react-hook-form"
 import {useNavigate} from "react-router-dom"
+import toast, { Toaster } from 'react-hot-toast';
 const Admin = () => {
 
   const navigate = useNavigate()
@@ -14,10 +15,11 @@ const Admin = () => {
 
       const onSubmit = (data) => {
         if(data.name=='hiren' && data.password=='2912'){
+          toast.success("login success")
           navigate("/admindashboard")
         }
         else{
-          alert('username or password is incorrect')
+          toast.error('username or password is incorrect')
         }
       }
   return (

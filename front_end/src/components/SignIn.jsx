@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form"
 import axios from 'axios'
 import Header from "./Header"
 import Footer from "./Footer"
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const SignIn = () => {
@@ -24,13 +25,13 @@ const onSubmit = (data) => {
   axios.post("http://localhost:3011/signin",{email,password})
   .then(user => {
     if(user.data.success){
-      alert(user.data.message)
+      toast.success(user.data.message)
       localStorage.setItem("authToken",user.data.token)
       navigate("/")
       
     }
     else{
-      alert(user.data.message)
+      toast.error(user.data.message)
     }
   })
   .catch(err => console.log(err))

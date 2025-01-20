@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast';
 
 const BookRoom = () => {
 
@@ -22,10 +23,10 @@ const BookRoom = () => {
 axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate})
 .then(user => {
   if(user.data.success){
-    alert(user.data.message)
+    toast.success(user.data.message)
   }
   else{
-    alert(user.data.message)
+    toast.error(user.data.message)
   }
 })
 .catch(err => {

@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom"
 import RoomProvider from "../store/roomStore"
+import { Toaster } from "react-hot-toast"
+
 
 function App() {
 
@@ -11,7 +13,7 @@ function App() {
     <>
  
    <RoomProvider>
-
+ <Toaster/>
   
      <Outlet/>
     

@@ -4,6 +4,7 @@ import axios from "axios"
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 
 const UpdateRoom = () => {
 
@@ -52,12 +53,12 @@ const UpdateRoom = () => {
 
     .then(user => {
      if(user.data.success){
-      alert(user.data.message)
+      toast.success(user.data.message)
       navigate("/managerooms")
 
      }
      else{
-      alert(user.data.message)
+      toast.error(user.data.message)
      }
     })
     .catch(err => {

@@ -4,6 +4,7 @@ import AdminDashBoard from './AdminDashBoard'
 import axios from "axios"
 import { useEffect } from 'react'
 import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 
 const Manage_user = () => {
 
@@ -17,15 +18,16 @@ const Manage_user = () => {
     })
     .catch(err => console.log(err))
 
-  },[])
+  },[users])
 
   const userDelete = (id) => {
    axios.delete("http://localhost:3011/deleteUser/"+id)
    .then(user => {
-    alert('user Delete')
+    toast.success('user Delete')
+    localStorage.removeItem("authToken")
    })
    .catch(err => {
-    alert('something went Wrong!!')
+    toast.error('something went Wrong!!')
    })
   }
   return (

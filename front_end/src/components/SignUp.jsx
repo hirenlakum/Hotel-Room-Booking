@@ -4,8 +4,12 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import Header from "./Header"
 import Footer from "./Footer"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const SignUp = () => {
+
+  
 
   const {
     register,
@@ -24,7 +28,7 @@ const SignUp = () => {
     axios.post("http://localhost:3011/signup",formData)
     .then(user => {
       if(user.data.success){
-        alert(user.data.message)
+        toast.success(user.data.message)
       }
       else{
         alert(user.data.message)
@@ -194,6 +198,7 @@ const SignUp = () => {
         </form>
       </div>
     </div>
+
     <Footer/>
     </>
   )

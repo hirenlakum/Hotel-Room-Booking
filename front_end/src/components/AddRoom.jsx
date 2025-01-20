@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form"
 import { Link } from 'react-router-dom'
 import axios from "axios"
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 
  const AddRoom = () => {
     const {
@@ -29,11 +30,11 @@ import { useNavigate } from 'react-router-dom'
        .then(user => {
         
         if(user.data.success){
-          alert(user.data.message)
+          toast.success(user.data.message)
           navigate("/managerooms")
         }
         else{
-          alert(user.data.message)
+          toast.error(user.data.message)
         }
       })
        .catch(err => console.log(err))
