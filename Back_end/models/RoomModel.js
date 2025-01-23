@@ -9,17 +9,18 @@ const roomSchema=new mongoose.Schema({
         type:Number,
         require:true,
     },
-    availability:{
+    isBook:{
         type:Boolean,
-        default:true
+        default:false
     },
     badType:{
         type:String,
         require:true
     },
+   
     people:{
         type:Number,
-        require:true,
+        require:true
     },
     createdAt:{
         type:Date,

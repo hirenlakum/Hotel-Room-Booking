@@ -26,6 +26,8 @@ import AddRoom from './components/AddRoom.jsx'
 import UpdateRoom from './components/UpdateRoom.jsx'
 import BookRoom from './components/BookRoom.jsx'
 
+import Room from './components/Room.jsx'
+import BookingHistory from './components/BookingHistory.jsx'
 
 const router = createBrowserRouter([
   {
@@ -94,6 +96,12 @@ path:"/manageuser",element:<Manage_user/>
       },
       {
         path:"/bookroom/:id",element:<BookRoom/>
+      },
+      {
+     path:'/room',element:<Room/>
+      },
+      {
+        path:'/bookinghistory',element:<BookingHistory/>
       }
     
     

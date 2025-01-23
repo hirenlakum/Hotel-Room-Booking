@@ -19,6 +19,7 @@ const RoomProvider = ({children}) => {
         axios.get("http://localhost:3011/getrooms")
         .then(user => {
             setRooms(user.data)
+           
         })
         .catch(err => {
             console.log(err)
@@ -26,6 +27,7 @@ const RoomProvider = ({children}) => {
     
     },[])
 
+    
     
    
 

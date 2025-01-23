@@ -20,7 +20,7 @@ const AdminDashBoard = () => {
 
       <hr class="my-6 border-gray-400" />
 
-      <ul class="space-y-3">
+      <ul class="space-y-3">`
         <li>
           <Link to="/admindashboard" class="text-white text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3 transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
@@ -43,7 +43,7 @@ const AdminDashBoard = () => {
           </Link>
         </li>
         <li>
-          <a href="javascript:void(0)" class="text-white text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3 transition-all">
+          <a href="/bookinghistory" class="text-white text-sm flex items-center hover:bg-gray-700 rounded px-4 py-3 transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
               viewBox="0 0 512 512">
               <path

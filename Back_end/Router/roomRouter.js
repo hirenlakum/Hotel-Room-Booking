@@ -140,22 +140,15 @@ router.post("/updateRooms/:id",upload.single("image"),async(req,res)=>{
 router.post("/bookroom", async(req,res)=>{
     const {id,userId,checkinDate,checkoutDate} = req.body
 
+    
    
-    const checkin = new Date(checkinDate)
-    const checkout = new Date(checkoutDate)
+    
 
 
 
-   /* function parseDate(dateString){
-        const [day,month,year] = dateString.split("-")
-        return new Date(`${year}-${month}-${day}`)
-    }
+
 
   
-    const checkin = parseDate(checkinDate)
-    const checkout = parseDate(checkoutDate)
-
-    */
 
     
 
@@ -164,7 +157,7 @@ router.post("/bookroom", async(req,res)=>{
 const room=await RoomModel.findById({_id:id})
 
   const isAvailable = room.bookedDate.some((bad)=>{
-    return checkin<bad.checkoutDate && checkout>bad.checkinDate
+    return checkinDate<bad.checkoutDate && checkoutDate>bad.checkinDate
   })
 
 console.log(isAvailable)
@@ -179,11 +172,11 @@ console.log(isAvailable)
   })
   }
   else{
-    room.availability=false
+    room.isBook=true
     room.bookedDate.push({
         userId,
-        checkinDate:checkin,
-        checkoutDate:checkout
+        checkinDate:checkinDate,
+        checkoutDate:checkoutDate
     })
     await room.save()
     const updatedUser = UserModel.findByIdAndUpdate({_id:userId},
@@ -247,5 +240,18 @@ router.get("/bookroomdata/:id",async(req,res)=>{
 
 
 })
+
+
+router.get("/getBookedRoomData",async (req,res)=>{
+    await RoomModel.find({isBook:true})
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+
 
 module.exports=router

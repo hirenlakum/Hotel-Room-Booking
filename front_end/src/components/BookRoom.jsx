@@ -7,8 +7,12 @@ import { useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
+
 
 const BookRoom = () => {
+
+  const navigate = useNavigate()
 
     const {id} = useParams()
     const [checkinDate,setCheckin] = useState()
@@ -24,6 +28,7 @@ axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate}
 .then(user => {
   if(user.data.success){
     toast.success(user.data.message)
+
   }
   else{
     toast.error(user.data.message)
@@ -33,6 +38,8 @@ axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate}
   console.log("error while booking room",err)
 })
 
+console.log(checkinDate)
+console.log(checkoutDate)
         
        
         

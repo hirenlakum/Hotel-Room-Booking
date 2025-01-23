@@ -15,6 +15,7 @@ app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 app.use("/profileUpload",express.static(path.join(__dirname,"profileUpload")))
 
 
+
 const port = 3011
 
 app.listen(port,()=>{
