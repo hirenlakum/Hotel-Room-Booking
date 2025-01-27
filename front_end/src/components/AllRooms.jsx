@@ -13,6 +13,7 @@ import Room from './Room'
 const AllRooms = () => {
 
   const {rooms} = useContext(RoomContext)
+ 
 
   if(!rooms || rooms.length ===0){
     return <Loader/>
@@ -20,7 +21,7 @@ const AllRooms = () => {
 
   
 
-  rooms.map((room)=>console.log(room))
+
 
  
  

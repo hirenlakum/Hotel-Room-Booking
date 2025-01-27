@@ -31,7 +31,7 @@ const Room = ({room}) => {
               <img src={`http://localhost:3011/uploads/${room.image}`} alt="room image" className="w-[100%] h-[300px]" />
               <h1 className="p-3 text-[25px]">{room.badType}</h1>
               <p className="text-[17px] p-3 ">Make Yourself Comfortable in any of our serene  guest rooms and spacious suites..</p>
-              <p className="p-2 text-gray-600 text-[20px]">Price:<span className="text-black text-[25px] font-bold pl-2">${room.price}</span>/night</p>
+              <p className="p-2 text-gray-600 text-[20px]">Price:<span className="text-black text-[25px] font-bold pl-2">{room.price}</span>/night</p>
               <button className='w-[140px] mb-2 h-[40px] bg-blue-600 text-white' onClick={()=>bookRoom(room._id)}>Book Now</button>
               
           </div>

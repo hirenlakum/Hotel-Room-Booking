@@ -13,6 +13,7 @@ const RoomProvider = ({children}) => {
 
 
     const [rooms,setRooms] = useState([])
+    console.log(rooms)
 
     useEffect(()=>{
 

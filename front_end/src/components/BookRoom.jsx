@@ -24,10 +24,11 @@ const BookRoom = () => {
     const bookroom = (e) => {
         e.preventDefault()
 
-axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate})
+axios.post("http://localhost:3011/checkAvailability",{id,checkinDate,checkoutDate})
 .then(user => {
   if(user.data.success){
     toast.success(user.data.message)
+    navigate(`/checkout/${id}/${checkinDate}/${checkoutDate}`)
 
   }
   else{
@@ -38,8 +39,7 @@ axios.post("http://localhost:3011/bookroom",{id,userId,checkinDate,checkoutDate}
   console.log("error while booking room",err)
 })
 
-console.log(checkinDate)
-console.log(checkoutDate)
+
         
        
         

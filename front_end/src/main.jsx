@@ -25,9 +25,10 @@ import Loader from './components/Loader.jsx'
 import AddRoom from './components/AddRoom.jsx'
 import UpdateRoom from './components/UpdateRoom.jsx'
 import BookRoom from './components/BookRoom.jsx'
-
+import Checkout from './components/Checkout.jsx'
 import Room from './components/Room.jsx'
 import BookingHistory from './components/BookingHistory.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -102,7 +103,11 @@ path:"/manageuser",element:<Manage_user/>
       },
       {
         path:'/bookinghistory',element:<BookingHistory/>
-      }
+      },
+      {
+        path:"/checkout/:id/:checkinDate/:checkoutDate",element:<Checkout/>
+      },
+    
     
     
     ],

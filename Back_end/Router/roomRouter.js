@@ -137,19 +137,22 @@ router.post("/updateRooms/:id",upload.single("image"),async(req,res)=>{
 })
 
 
-router.post("/bookroom", async(req,res)=>{
-    const {id,userId,checkinDate,checkoutDate} = req.body
+router.post("/checkAvailability", async(req,res)=>{
+
+ const {id,checkinDate,checkoutDate} = req.body
 
     
    
     
 
-
+const checkinDate1 = new Date(checkinDate)
+const checkoutDate1 = new Date(checkoutDate)
 
 
 
   
-
+console.log(checkinDate1)
+console.log(checkoutDate1)
     
 
     
@@ -157,7 +160,7 @@ router.post("/bookroom", async(req,res)=>{
 const room=await RoomModel.findById({_id:id})
 
   const isAvailable = room.bookedDate.some((bad)=>{
-    return checkinDate<bad.checkoutDate && checkoutDate>bad.checkinDate
+    return checkinDate1<bad.checkoutDate && checkoutDate1>bad.checkinDate
   })
 
 console.log(isAvailable)
@@ -172,38 +175,12 @@ console.log(isAvailable)
   })
   }
   else{
-    room.isBook=true
-    room.bookedDate.push({
-        userId,
-        checkinDate:checkinDate,
-        checkoutDate:checkoutDate
-    })
-    await room.save()
-    const updatedUser = UserModel.findByIdAndUpdate({_id:userId},
 
-        {
-            $push:{bookedRooms:id}
-        },
-        {
-            new:true,
-            upsert:true
-        }
-    )
-    .then(user => {
-        return res.json({
-            success:true,
-            message:'Room Booked Successfully',
-            userData:updatedUser
-        })
-    })
-    .catch(err => {
-        return res.json({
-            success:true,
-            message:'error while book room'
-        })
-    })
- 
 
+return res.json({
+    success:true,
+    message:"Room Available"
+})
   }
 
 
@@ -250,6 +227,61 @@ router.get("/getBookedRoomData",async (req,res)=>{
     .catch(err => {
         res.json(err)
     })
+})
+
+router.get("/getEachRoom/:id",async (req,res)=>{
+  
+    await RoomModel.findById({_id:id})
+    .then(user => {
+        res.json(user)
+    })
+    .catch(err => {
+        res.json(err)
+    })
+})
+
+router.post("/bookRoom",async(req,res)=>{
+    const {id,userId,checkinDate,checkoutDate} = req.body
+
+console.log(id,userId,checkinDate,checkoutDate)
+
+    const room = await RoomModel.findById({_id:id})
+
+   room.isBook=true
+   room.bookedDate.push({
+       userId,
+       checkinDate:checkinDate,
+       checkoutDate:checkoutDate
+       
+   })
+
+
+   await room.save()
+
+   await UserModel.findByIdAndUpdate({_id:userId},
+    {
+    $push:{bookedRooms:id}
+   },
+   {
+    
+        new:true,
+        upsert:true
+    
+   }
+)
+.then(user => {
+    return res.json({
+        success:true,
+        message:"Room Book Successfully"
+    })
+})
+.catch(err => {
+    return res.json({
+        success:true,
+        message:"Room Not Book Something is wrong"
+    })
+})
+    
 })
 
 
